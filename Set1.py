@@ -20,11 +20,23 @@ from Crypto.Cipher import AES
 # xor = np.bitwise_xor(hex1,hex2)
 # xor = xor.tolist()
 # print(codecs.encode(bytes(xor),encoding='hex'))
+
+def xord(buffer1,buffer2):
+    """
+    While I don't need to define a xor function when I could simply use numpy's bitwise_xor, I wanted a function I
+    could tweak more easily.
+    """
+    xor = b''
+    # assert len(buffer1) == len(buffer2), 'Buffer1 and Buffer2 differ in Length, Can\'t Xor'
+    for i in range(len(buffer1)):
+        xor += bytes([buffer1[i]^buffer2[i]])
+    return xor
+
 " ============================================ "
 
 " ================= Check 3 ================== "
 # hex = bytes.fromhex("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
-def single_xor(hex):
+def single_xor_crack(hex):
     alph = list(" etaoinshrdlcumwfgypbvkjxqz")
     alph.reverse()
     candidates = list()
@@ -194,3 +206,4 @@ def normal_distance(ciphertext,keysize):
 #     # print(k,location,max,codecs.encode(candidate,encoding='base64'))
 #     print('For block size {} I guess that line {} is in ECB mode with a score of {}.'.format(k,location,max))
 " ============================================ "
+
